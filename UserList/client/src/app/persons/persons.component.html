@@ -1,0 +1,75 @@
+<form class="form" (submit)="add(name.value,patronymic.value,surname.value,phone.value,email.value);
+                              name.value=''; patronymic.value=''; surname.value=''; phone.value=''; email.value='';">
+  <div class="form-group">
+    <input #name type="text" class="form-control" placeholder="Имя">
+    <input #patronymic type="text" class="form-control" placeholder="Отчество">
+    <input #surname type="text" class="form-control" placeholder="Фамилия">
+    <input #phone type="text" class="form-control" placeholder="Телефон">
+    <input #email type="text" class="form-control" placeholder="Эл. почта">
+  </div>
+  <input type="submit" value="SUBMIT" class="btn btn-success btn-lg btn-block">
+</form>
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource" >
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef > № </mat-header-cell>
+      <mat-cell *matCellDef="let person">
+          <span>{{person.id}}</span>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef > Имя </mat-header-cell>
+      <mat-cell *matCellDef="let person">
+        <a (click)="edit(person)">
+          <span *ngIf="person!==editPerson">{{person.name}}</span>
+          <input *ngIf="person===editPerson" [(ngModel)]="person.name" (blur)="update()" (keyup.enter)="update()">
+        </a>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="patronymic">
+      <mat-header-cell *matHeaderCellDef > Отчество </mat-header-cell>
+      <mat-cell *matCellDef="let person">
+        <a (click)="edit(person)">
+          <span *ngIf="person!==editPerson">{{person.patronymic}}</span>
+          <input *ngIf="person===editPerson" [(ngModel)]="person.patronymic" (blur)="update()" (keyup.enter)="update()">
+        </a>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="surname">
+      <mat-header-cell *matHeaderCellDef > Фамилия </mat-header-cell>
+      <mat-cell *matCellDef="let person">
+        <a (click)="edit(person)">
+          <span *ngIf="person!==editPerson">{{person.surname}}</span>
+          <input *ngIf="person===editPerson" [(ngModel)]="person.surname" (blur)="update()" (keyup.enter)="update()">
+        </a>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="phone">
+    <mat-header-cell *matHeaderCellDef > Телефон </mat-header-cell>
+    <mat-cell *matCellDef="let person">
+      <a (click)="edit(person)">
+        <span *ngIf="person!==editPerson">{{person.phone}}</span>
+        <input *ngIf="person===editPerson" [(ngModel)]="person.phone" (blur)="update()" (keyup.enter)="update()">
+      </a>
+    </mat-cell>
+  </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef > Эл. почта </mat-header-cell>
+      <mat-cell *matCellDef="let person">
+        <a (click)="edit(person)">
+          <span *ngIf="person!==editPerson">{{person.email}}</span>
+          <input *ngIf="person===editPerson" [(ngModel)]="person.email" (blur)="update()" (keyup.enter)="update()">
+        </a>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell  *matHeaderCellDef > Действия </mat-header-cell>
+      <mat-cell *matCellDef="let todo" >
+        <button class="btn btn-danger" (click)="delete(todo)">Удалить</button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></mat-header-row>
+    <mat-row *matRowDef="let row; columns:displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator pageSize="10" showFirstLastButtons></mat-paginator>
+</div>
